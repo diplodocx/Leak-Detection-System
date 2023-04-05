@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 def mongo_connect():
-    client = pymongo.MongoClient("mongodb://localhost:27017")
+    client = pymongo.MongoClient("mongodb+srv://diplodocx:work11@cluster0.9t5khye.mongodb.net/?retryWrites=true&w=majority")
     db = client["leakDetection"]
     return db["leaks"]
 
