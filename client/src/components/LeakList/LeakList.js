@@ -3,11 +3,12 @@ import classes from './LeakList.module.css';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 
-function LeakList({ page }) {
+function LeakList() {
 	const [leaks, setLeaks] = useState([]);
 
 	useEffect(() => {
 		axios.get('/leaks').then((res) => {
+			console.log(res);
 			const leakData = res.data.leak_data;
 			const newLeaks = leakData.map((leak, index) => {
 				return { id: leak._id, mac: leak.mac, time: leak.time };

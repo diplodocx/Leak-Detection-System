@@ -4,7 +4,7 @@ from controllers.controllers import get_data
 routes = Blueprint('routs', __name__)
 
 
-@routes.route('/')
+@routes.route('/leaks')
 def on_leak():
     data = get_data(limit=100)
     return jsonify({
