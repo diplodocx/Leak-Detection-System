@@ -1,0 +1,17 @@
+.Dick {
+    display: flex;
+    min-height: 100vh;
+    background: url(./dick.png);
+    size: cover;
+    padding: 0;
+    margin-top: -2px;
+}
+
+.Dick h1 {
+    font-family: 'Roboto';
+    margin: auto;
+    font-size: 150px;
+    color: white;
+    -webkit-text-stroke: 5px black;
+    text-stroke: 3px black;
+}

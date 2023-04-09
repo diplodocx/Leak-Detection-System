@@ -1,0 +1,54 @@
+.Login {
+    display: flex;
+    font-family: 'Roboto';
+    padding: 0;
+    margin: 0;
+    background: rgb(73, 240, 122);
+    background: radial-gradient(circle, rgba(73, 240, 122, 1) 0%, rgba(251, 251, 251, 1) 100%);
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    max-width: 1312px;
+    margin: auto;
+    padding: 0;
+}
+
+.authForm {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 416px;
+    padding: 32px;
+    border-radius: 16px;
+    background: white;
+}
+
+.authForm h1 {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    margin: 0;
+}
+
+.authForm p {
+    margin-bottom: 0;
+    margin-top: 9px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.authForm hr {
+    background-color: rgba(0, 0, 0, .1);
+    height: 1px;
+    width: 100%;
+    border: none;
+    margin-top: 25px;
+    margin-bottom: 32px;
+}
+
+.Input {
+    margin-bottom: 15px;
+}
