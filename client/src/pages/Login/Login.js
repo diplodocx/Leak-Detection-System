@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './Login.module.css';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import { NavLink } from 'react-router-dom';
 
 function Login() {
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	const ButtonGreen = styled(Button)({
 		backgroundColor: '#0fbd43',
@@ -20,6 +20,10 @@ function Login() {
 
 	const submitHandler = (event) => {
 		event.preventDefault();
+	};
+
+	const useGoHome = () => {
+		navigate('/home');
 	};
 
 	return (
@@ -63,7 +67,9 @@ function Login() {
 						control={<Checkbox value='remember' color='primary' />}
 						label='Запомнить меня'
 					/>
-					<ButtonGreen variant='contained'>Войти</ButtonGreen>
+					<ButtonGreen variant='contained' onClick={useGoHome}>
+						Войти
+					</ButtonGreen>
 				</form>
 			</div>
 		</div>
