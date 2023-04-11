@@ -1,6 +1,8 @@
 import pymongo
 from datetime import datetime
 from config import MONGO_URI
+import redis
+import json
 
 
 def mongo_connect():
@@ -15,9 +17,11 @@ def insert_leak_data(mac):
     data = {
         "_id": last_id + 1,
         "mac": mac,
-        "time": datetime.now()
+        "time": str(datetime.now())
     }
     coll.insert_one(data)
+    with redis.Redis() as connection:
+        connection.lpush("leaks", json.dumps(data))
 
 
 def get_leak_data(limit):
