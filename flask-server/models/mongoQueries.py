@@ -1,9 +1,10 @@
 import pymongo
 from datetime import datetime
+from config import MONGO_URI
 
 
 def mongo_connect():
-    client = pymongo.MongoClient("mongodb+srv://diplodocx:work11@cluster0.9t5khye.mongodb.net/?retryWrites=true&w=majority")
+    client = pymongo.MongoClient(MONGO_URI)
     db = client["leakDetection"]
     return db["leaks"]
 

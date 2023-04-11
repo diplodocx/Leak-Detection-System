@@ -1,13 +1,19 @@
-from flask import Blueprint, jsonify
-from controllers.controllers import get_data
+from flask import Blueprint, jsonify, request
+from controllers.controllers import get_data, login_user
 
 routes = Blueprint('routs', __name__)
 
 
 @routes.route('/leaks')
-def on_leak():
+def leaks():
     data = get_data(limit=100)
     return jsonify({
-        "tittle":"webpage",
-        "leak_data":data
+        "leak_data": data
     })
+
+
+@routes.route('/login', methods=['POST'])
+def on_login():
+    data = request.json
+    res = login_user(data)
+    return jsonify(res)
