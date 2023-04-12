@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
@@ -22,9 +22,19 @@ function Login() {
 		event.preventDefault();
 	};
 
-	const useGoHome = () => {
-		navigate('/home');
-	};
+	useEffect(() => {
+		function handleEnterReturnKey(event) {
+			if (event.keyCode === 13) {
+				navigate('/home');
+			}
+		}
+
+		document.addEventListener('keydown', handleEnterReturnKey);
+
+		return () => {
+			document.removeEventListener('keydown', handleEnterReturnKey);
+		};
+	}, []);
 
 	return (
 		<div className={classes.Login}>
@@ -67,7 +77,12 @@ function Login() {
 						control={<Checkbox value='remember' color='primary' />}
 						label='Запомнить меня'
 					/>
-					<ButtonGreen variant='contained' onClick={useGoHome}>
+					<ButtonGreen
+						variant='contained'
+						onClick={() => {
+							navigate('/home');
+						}}
+					>
 						Войти
 					</ButtonGreen>
 				</form>
