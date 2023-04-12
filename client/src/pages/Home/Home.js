@@ -6,10 +6,7 @@ import LeakList from '../../components/LeakList/LeakList';
 function Home() {
 	return (
 		<div className={classes.Home}>
-			<div className={classes.container}>
-				<h1>Протечки</h1>
-				<LeakList page={1} />
-			</div>
+			<div className={classes.container}></div>
 		</div>
 	);
 }

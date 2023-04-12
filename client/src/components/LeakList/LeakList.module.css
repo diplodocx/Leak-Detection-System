@@ -1,8 +1,31 @@
 .LeakList {
-    width: 100%;
-    height: 319px;
+    display: flex;
+    font-family: 'Roboto';
+    padding: 0;
+    margin: 0;
+    background: rgb(73, 240, 122);
+    background: radial-gradient(circle, rgba(73, 240, 122, 1) 0%, rgba(251, 251, 251, 1) 100%);
+    min-height: 100vh;
+
 }
 
 .idHeader {
     margin-left: '10px';
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1312px;
+    width: 700px;
+    height: 100%;
+    margin: auto;
+    padding: 0;
+    background-color: white;
+}
+
+.Progress {
+    position: relative;
+    top: 30%;
+    left: 47%;
 }

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import classes from './LeakList.module.css';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
+import { CircularProgress } from '@mui/material';
 
 function LeakList() {
 	const [leaks, setLeaks] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		axios.get('/leaks').then((res) => {
@@ -15,6 +17,7 @@ function LeakList() {
 			});
 
 			setLeaks(newLeaks);
+			setLoading(false);
 		});
 	}, []);
 
@@ -22,13 +25,13 @@ function LeakList() {
 		{
 			field: 'id',
 			headerName: 'ID',
-			width: 150,
+			width: 100,
 			headerClassName: classes.idHeader,
 		},
 		{
 			field: 'mac',
 			headerName: 'Мак адрес',
-			width: 150,
+			width: 200,
 			headerClassName: 'mac-header',
 		},
 		{
@@ -41,21 +44,27 @@ function LeakList() {
 
 	return (
 		<div className={classes.LeakList}>
-			<DataGrid
-				sx={{
-					'& .MuiDataGrid-columnHeaders': {
-						paddingLeft: '20px',
-					},
-					'& .MuiDataGrid-virtualScrollerRenderZone': {
-						paddingLeft: '20px',
-					},
-					borderBottomLeftRadius: '16px',
-					borderBottomRightRadius: '16px',
-				}}
-				rows={leaks}
-				columns={columns}
-				autoPageSize
-			/>
+			<div className={classes.container}>
+				{loading ? (
+					<CircularProgress className={classes.Progress} color='success' />
+				) : (
+					<DataGrid
+						sx={{
+							'& .MuiDataGrid-columnHeaders': {
+								paddingLeft: '2.5%',
+							},
+							'& .MuiDataGrid-virtualScrollerRenderZone': {
+								paddingLeft: '2.5%',
+							},
+							borderBottomLeftRadius: '16px',
+							borderBottomRightRadius: '16px',
+						}}
+						rows={leaks}
+						columns={columns}
+						autoPageSize
+					/>
+				)}
+			</div>
 		</div>
 	);
 }
