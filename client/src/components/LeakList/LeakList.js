@@ -19,16 +19,38 @@ function LeakList() {
 	}, []);
 
 	const columns = [
-		{ field: 'id', headerName: 'ID', width: 90 },
-		{ field: 'mac', headerName: 'Мак адрес', width: 150 },
-		{ field: 'time', headerName: 'Время', width: 250 },
+		{
+			field: 'id',
+			headerName: 'ID',
+			width: 150,
+			headerClassName: classes.idHeader,
+		},
+		{
+			field: 'mac',
+			headerName: 'Мак адрес',
+			width: 150,
+			headerClassName: 'mac-header',
+		},
+		{
+			field: 'time',
+			headerName: 'Время',
+			width: 250,
+			headerClassName: 'time-header',
+		},
 	];
 
 	return (
 		<div className={classes.LeakList}>
 			<DataGrid
 				sx={{
-					borderRadius: 0,
+					'& .MuiDataGrid-columnHeaders': {
+						paddingLeft: '20px',
+					},
+					'& .MuiDataGrid-virtualScrollerRenderZone': {
+						paddingLeft: '20px',
+					},
+					borderBottomLeftRadius: '16px',
+					borderBottomRightRadius: '16px',
 				}}
 				rows={leaks}
 				columns={columns}
