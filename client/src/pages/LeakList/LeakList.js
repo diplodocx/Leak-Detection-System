@@ -4,6 +4,31 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import { CircularProgress } from '@mui/material';
 
+function parseDate(date) {
+	const dateString = date.split(' ')[0];
+	const months = [
+		'января',
+		'февраля',
+		'марта',
+		'апреля',
+		'мая',
+		'июня',
+		'июля',
+		'августа',
+		'сентября',
+		'октября',
+		'ноября',
+		'декабря',
+	];
+
+	const dateParts = dateString.split('-');
+	const year = dateParts[0];
+	const month = months[parseInt(dateParts[1]) - 1];
+	const day = parseInt(dateParts[2]);
+
+	return `${day} ${month} ${year}`;
+}
+
 function LeakList() {
 	const [leaks, setLeaks] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -13,7 +38,14 @@ function LeakList() {
 			console.log(res);
 			const leakData = res.data.leak_data;
 			const newLeaks = leakData.map((leak, index) => {
-				return { id: leak._id, mac: leak.mac, time: leak.time };
+				const leakDate = parseDate(leak.time);
+				const leakTime = leak.time.replace(/\.[0-9]*/, '').split(' ')[1];
+
+				return {
+					id: leak._id,
+					mac: leak.mac,
+					time: `${leakTime}, ${leakDate}`,
+				};
 			});
 
 			setLeaks(newLeaks);
@@ -25,20 +57,17 @@ function LeakList() {
 		{
 			field: 'id',
 			headerName: 'ID',
-			width: 100,
-			headerClassName: classes.idHeader,
+			width: 110,
 		},
 		{
 			field: 'mac',
 			headerName: 'Мак адрес',
 			width: 200,
-			headerClassName: 'mac-header',
 		},
 		{
 			field: 'time',
 			headerName: 'Время',
-			width: 250,
-			headerClassName: 'time-header',
+			width: 200,
 		},
 	];
 
@@ -51,12 +80,12 @@ function LeakList() {
 				) : (
 					<DataGrid
 						sx={{
-							'& .MuiDataGrid-columnHeaders': {
-								paddingLeft: '2.5%',
+							'&:nth-of-type(1) .MuiDataGrid-main': {
+								paddingLeft: '5%',
+								paddingRight: '5%',
 							},
-							'& .MuiDataGrid-virtualScrollerRenderZone': {
-								paddingLeft: '2.5%',
-							},
+							borderTopLeftRadius: '0px',
+							borderTopRightRadius: '0px',
 							borderBottomLeftRadius: '16px',
 							borderBottomRightRadius: '16px',
 						}}

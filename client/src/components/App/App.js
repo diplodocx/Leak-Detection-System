@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from '../../pages/Login/Login';
 import Dick from '../Dick/Dick';
-import LeakList from '../LeakList/LeakList';
+import LeakList from '../../pages/LeakList/LeakList';
 
 export default function App() {
 	return (

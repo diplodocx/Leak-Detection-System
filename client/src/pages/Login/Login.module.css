@@ -1,7 +1,8 @@
 .Login {
     display: flex;
     font-family: 'Roboto';
-    padding: 0;
+    padding-right: 20px;
+    padding-left: 20px;
     margin: 0;
     background: rgb(73, 240, 122);
     background: radial-gradient(circle, rgba(73, 240, 122, 1) 0%, rgba(251, 251, 251, 1) 100%);
@@ -10,7 +11,8 @@
 
 .container {
     display: flex;
-    max-width: 1312px;
+    max-width: 700px;
+    width: 100%;
     margin: auto;
     padding: 0;
 }
