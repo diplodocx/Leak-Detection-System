@@ -45,6 +45,7 @@ function LeakList() {
 	return (
 		<div className={classes.LeakList}>
 			<div className={classes.container}>
+				<h1>Протечки</h1>
 				{loading ? (
 					<CircularProgress className={classes.Progress} color='success' />
 				) : (
