@@ -1,15 +1,39 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import React, { createContext, useState, useContext } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Login from '../../pages/Login/Login';
 import Dick from '../Dick/Dick';
 import LeakList from '../../pages/LeakList/LeakList';
 
 export default function App() {
+	const navigate = useNavigate();
+	const [isLoggedIn, setIsLoggedIn] = useState(
+		localStorage.getItem('isLoggedIn') === 'false' ? false : true
+	);
+
+	const appLogin = () => {
+		console.log('logged in');
+		localStorage.setItem('isLoggedIn', 'true');
+		setIsLoggedIn(true);
+	};
+
+	const appQuit = () => {
+		localStorage.setItem('isLoggedIn', 'false');
+		setIsLoggedIn(false);
+		navigate('/login');
+	};
+
 	return (
 		<Routes>
-			<Route path='/login' element={<Login />} />
 			<Route path='/dick' element={<Dick />} />
-			<Route path='/home' element={<LeakList page={1} />} />
+			{isLoggedIn ? (
+				<>
+					<Route
+						path='/home'
+						element={<LeakList page={1} onExit={appQuit} />}
+					/>
+				</>
+			) : null}
+			<Route path='/login' element={<Login onLogin={appLogin} />} />
 			<Route path='/' element={<Navigate to='/login' />} />
 		</Routes>
 	);

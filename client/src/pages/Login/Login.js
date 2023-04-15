@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import classes from './Login.module.css';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
@@ -7,9 +7,29 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
-function Login() {
+function Login({ onLogin }) {
 	const navigate = useNavigate();
+	const [username, setUsername] = useState({
+		value: '',
+	});
+	const [password, setPassword] = useState({
+		value: '',
+	});
+
+	const textFieldStyle = {
+		width: '100%',
+		marginBottom: '18px',
+		'& label.Mui-focused': {
+			color: '#0fbd43',
+		},
+		'& .MuiOutlinedInput-root': {
+			'&.Mui-focused fieldset': {
+				borderColor: '#0fbd43',
+			},
+		},
+	};
 
 	const ButtonGreen = styled(Button)({
 		backgroundColor: '#0fbd43',
@@ -22,19 +42,41 @@ function Login() {
 		event.preventDefault();
 	};
 
-	useEffect(() => {
-		function handleEnterReturnKey(event) {
-			if (event.keyCode === 13) {
-				navigate('/home');
-			}
-		}
+	const onChangePasswordHandler = (event) => {
+		setPassword({
+			value: event.target.value,
+		});
+	};
 
-		document.addEventListener('keydown', handleEnterReturnKey);
+	const onChangeUsernameHandler = (event) => {
+		setUsername({
+			value: event.target.value,
+		});
+	};
 
-		return () => {
-			document.removeEventListener('keydown', handleEnterReturnKey);
+	async function loginHandler() {
+		const inputData = {
+			password: password.value,
+			username: username.value,
 		};
-	}, []);
+
+		const response = await axios.post('/login', inputData);
+
+		const isUsernameCorrect = response.data.checkU.isUCorrect;
+		const isPasswordCorrect = response.data.checkP.isPCorrect;
+
+		if (isUsernameCorrect && isPasswordCorrect === true) {
+			navigate('/home');
+			onLogin();
+		} else {
+		}
+	}
+
+	function handleKeyDown(event) {
+		if (event.key === 'Enter') {
+			loginHandler();
+		}
+	}
 
 	return (
 		<div className={classes.Login}>
@@ -57,32 +99,30 @@ function Login() {
 					<hr />
 					<TextField
 						className={classes.Input}
-						sx={{
-							width: '100%',
-							'& label.Mui-focused': {
-								color: '#0fbd43',
-							},
-							'& .MuiOutlinedInput-root': {
-								'&.Mui-focused fieldset': {
-									borderColor: '#0fbd43',
-								},
-							},
-						}}
+						sx={textFieldStyle}
+						variant='outlined'
+						label='Имя пользователя'
+						type='text'
+						value={username.value}
+						onChange={onChangeUsernameHandler}
+						onKeyDown={handleKeyDown}
+					/>
+					<TextField
+						className={classes.Input}
+						sx={textFieldStyle}
 						variant='outlined'
 						label='Пароль'
 						type='password'
+						value={password.value}
+						onChange={onChangePasswordHandler}
+						onKeyDown={handleKeyDown}
 					/>
 					<FormControlLabel
-						sx={{ marginBottom: '15px', marginTop: '8px' }}
+						sx={{ marginBottom: '15px', marginTop: '-8px' }}
 						control={<Checkbox value='remember' color='primary' />}
 						label='Запомнить меня'
 					/>
-					<ButtonGreen
-						variant='contained'
-						onClick={() => {
-							navigate('/home');
-						}}
-					>
+					<ButtonGreen variant='contained' onClick={loginHandler}>
 						Войти
 					</ButtonGreen>
 				</form>

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import classes from './LeakList.module.css';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
-import { CircularProgress } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { Button, CircularProgress } from '@mui/material';
 
 function parseDate(date) {
 	const dateString = date.split(' ')[0];
@@ -29,13 +30,19 @@ function parseDate(date) {
 	return `${day} ${month} ${year}`;
 }
 
-function LeakList() {
+const ButtonGreen = styled(Button)({
+	backgroundColor: '#0fbd43',
+	'&:hover': {
+		backgroundColor: '#0b8e32',
+	},
+});
+
+function LeakList({ onExit }) {
 	const [leaks, setLeaks] = useState([]);
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		axios.get('/leaks').then((res) => {
-			console.log(res);
 			const leakData = res.data.leak_data;
 			const newLeaks = leakData.map((leak, index) => {
 				const leakDate = parseDate(leak.time);
@@ -94,6 +101,9 @@ function LeakList() {
 						autoPageSize
 					/>
 				)}
+				<ButtonGreen variant='contained' onClick={onExit}>
+					Выыыйти
+				</ButtonGreen>
 			</div>
 		</div>
 	);
