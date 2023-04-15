@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Login from '../../pages/Login/Login';
 import Dick from '../Dick/Dick';
-import LeakList from '../../pages/LeakList/LeakList';
+import LeakList from '../../pages/Home/Home';
 
 export default function App() {
 	const navigate = useNavigate();
@@ -11,7 +11,6 @@ export default function App() {
 	);
 
 	const appLogin = () => {
-		console.log('logged in');
 		localStorage.setItem('isLoggedIn', 'true');
 		setIsLoggedIn(true);
 	};

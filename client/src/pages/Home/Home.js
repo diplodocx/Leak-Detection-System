@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import classes from './LeakList.module.css';
+import classes from './Home.module.css';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import { styled } from '@mui/material/styles';
@@ -81,13 +81,18 @@ function LeakList({ onExit }) {
 	return (
 		<div className={classes.LeakList}>
 			<div className={classes.container}>
-				<h1>Протечки</h1>
+				<div className={classes.header}>
+					<h1>Протечки</h1>
+					<ButtonGreen variant='contained' onClick={onExit}>
+						Выйти
+					</ButtonGreen>
+				</div>
 				{loading ? (
 					<CircularProgress className={classes.Progress} color='success' />
 				) : (
 					<DataGrid
 						sx={{
-							'&:nth-of-type(1) .MuiDataGrid-main': {
+							'&:nth-of-type(2) .MuiDataGrid-main': {
 								paddingLeft: '5%',
 								paddingRight: '5%',
 							},
@@ -101,9 +106,6 @@ function LeakList({ onExit }) {
 						autoPageSize
 					/>
 				)}
-				<ButtonGreen variant='contained' onClick={onExit}>
-					Выыыйти
-				</ButtonGreen>
 			</div>
 		</div>
 	);

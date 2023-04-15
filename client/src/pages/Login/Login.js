@@ -12,11 +12,16 @@ import axios from 'axios';
 function Login({ onLogin }) {
 	const navigate = useNavigate();
 	const [username, setUsername] = useState({
-		value: '',
+		value: localStorage.getItem('username')
+			? localStorage.getItem('username')
+			: '',
 	});
 	const [password, setPassword] = useState({
-		value: '',
+		value: localStorage.getItem('password')
+			? localStorage.getItem('password')
+			: '',
 	});
+	const [rememberUser, setRememberUser] = useState(false);
 
 	const textFieldStyle = {
 		width: '100%',
@@ -66,10 +71,19 @@ function Login({ onLogin }) {
 		const isPasswordCorrect = response.data.checkP.isPCorrect;
 
 		if (isUsernameCorrect && isPasswordCorrect === true) {
+			if (rememberUser) {
+				localStorage.setItem('username', inputData.username);
+				localStorage.setItem('password', inputData.password);
+			}
 			navigate('/home');
 			onLogin();
-		} else {
 		}
+		// else {
+		// }
+	}
+
+	function checkboxHandler() {
+		setRememberUser((prev) => !prev);
 	}
 
 	function handleKeyDown(event) {
@@ -119,7 +133,13 @@ function Login({ onLogin }) {
 					/>
 					<FormControlLabel
 						sx={{ marginBottom: '15px', marginTop: '-8px' }}
-						control={<Checkbox value='remember' color='primary' />}
+						control={
+							<Checkbox
+								onChange={checkboxHandler}
+								value='remember'
+								color='primary'
+							/>
+						}
 						label='Запомнить меня'
 					/>
 					<ButtonGreen variant='contained' onClick={loginHandler}>
